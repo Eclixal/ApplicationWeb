@@ -38,4 +38,3 @@ t.data.forEach((test) => {
 });
 
 console.log(c.calculDistanceTrajet(data));
-//test
