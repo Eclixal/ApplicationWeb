@@ -1,4 +1,4 @@
 let sqlite3 = require('sqlite3');
-let db = sqlite3.Database('sport_track.js');
+let db = new sqlite3.Database('sport_track.db');
 
 module.exports = db;
