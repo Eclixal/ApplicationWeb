@@ -27,9 +27,13 @@ let UserDAO = function(){
     };
 
     this.delete = function(key, callback) {
-
+      db.run("DELETE FROM Account WHERE id = " + key, (error) => {
+        if (error) {
+          console.log("Database error",error);
+        }
+      });
     };
-    
+
     this.findAll = function(callback) {
         db.all('SELECT * FROM Account', [], (err, rows) => {
             if (err)
