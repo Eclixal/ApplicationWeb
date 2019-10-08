@@ -5,7 +5,7 @@ let UserDAO = function(){
         if (error) {
           console.log("ERROR",error)
         }
-      })
+      });
     };
     this.update = function(key, values, callback) {
 
@@ -19,7 +19,7 @@ let UserDAO = function(){
                 throw err;
 
             rows.forEach((row) => {
-                console.log(row.name);
+                console.log(row.nom);
             });
         });
     };
@@ -29,7 +29,5 @@ let UserDAO = function(){
 };
 let dao = new UserDAO();
 
-
-dao.findAll();
 
 module.exports = dao;
