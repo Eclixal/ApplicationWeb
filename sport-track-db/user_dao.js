@@ -4,7 +4,7 @@ let UserDAO = function(){
         if (values.length === 8) {
           db.run('INSERT INTO Account (nom, prenom, date_de_naissance, sexe, taille, poids, email, password) VALUES(\'' + values[0] + '\',\'' + values[1] + '\',\'' + values[2] + '\',\'' + values[3] + '\',\'' + values[4] + '\',\'' + values[5] + '\',\'' + values[6] + '\',\'' + values[7] + '\')', (error) => {
             if (error) {
-              console.log("ERROR",error);
+              console.log("Database error",error);
             }
           });
         }
@@ -12,12 +12,24 @@ let UserDAO = function(){
           console.log("Database error");
         }
     };
-    this.update = function(key, values, callback) {
 
+    this.update = function(key, values, callback) {
+      if (values.length === 8) {
+        db.run('UPDATE INTO Account (nom, prenom ,date_de_naissance, sexe, taille, poids, email, password) VALUES (\'' + values[0] + '\',\'' + values[1] + '\',\'' + values[2] + '\',\'' + values[3] + '\',\'' + values[4] + '\',\'' + values[5] + '\',\'' + values[6] + '\',\'' + values[7] + '\') WHERE id = ' + "'" + key + "'", (error) => {
+          if (error) {
+            console.log("Database error",error);
+          }
+        });
+      }
+      else {
+        console.log("Database error");
+      }
     };
+
     this.delete = function(key, callback) {
 
     };
+    
     this.findAll = function(callback) {
         db.all('SELECT * FROM Account', [], (err, rows) => {
             if (err)
