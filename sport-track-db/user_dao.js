@@ -14,21 +14,20 @@ let UserDAO = function(){
 
     this.update = function(key, values, callback) {
       if (values.length === 8) {
-        db.run('UPDATE Account SET nom = \'' + values[0] + '\', prenom = \'' + values[1] + '\', date_de_naissance = \'' + values[2] + '\', sexe = \'' + values[3] + '\', taille = \'' + values[4] + '\', poids = \'' + values[5] + '\', email = \'' + values[6] + '\', password = \'' + values[7] + '\' WHERE id = ' + "'" + key + "'", (error) => {
+        db.run('UPDATE Account SET nom = \'' + values[0] + '\', prenom = \'' + values[1] + '\', date_de_naissance = \'' + values[2] + '\', sexe = \'' + values[3] + '\', taille = \'' + values[4] + '\', poids = \'' + values[5] + '\', email = \'' + values[6] + '\', password = \'' + values[7] + '\' WHERE id = ' + key, (error) => {
             if (error)
                 throw error;
         });
-      }
-      else {
+      } else {
         console.log("Database error");
       }
     };
 
     this.delete = function(key, callback) {
       db.run("DELETE FROM Account WHERE id = " + key, (error) => {
-        if (error) {
-          console.log("Database error",error);
-        }
+          if (error)
+              throw error;
+
       });
     };
 
@@ -47,8 +46,5 @@ let UserDAO = function(){
     };
 };
 let dao = new UserDAO();
-
-let t = ['Michel', 'Crapeau', '975369600', 'FEMME', '185', '60', 'a@a.a', 'coucou'];
-dao.insert(t, null);
 
 module.exports = dao;
