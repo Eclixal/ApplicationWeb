@@ -1,7 +1,7 @@
 let db = require('./sqlite_connection');
 let ActivityDAO = function(){
     this.insert = function(values, callback) {
-        if (values.length === 8) {
+        if (values.length === 3) {
           db.run('INSERT INTO Activity (date, description, unAccount) VALUES(\'' + values[0] + '\',\'' + values[1] + '\',\'' + values[2] + '\',\'' + values[3] + '\')', (error) => {
               if (error)
                   throw error;
@@ -13,14 +13,12 @@ let ActivityDAO = function(){
     };
 
     this.update = function(key, values, callback) {
-      if (values.length === 8) {
-        new Promise ((resolve,reject) => {
+      if (values.length === 3) {
           db.run('UPDATE Activity SET date = \'' + values[0] + '\', description = \'' + values[1] + '\', unAccount = \'' + values[2] + '\' WHERE id = ' + "'" + key + "'", (error) => {
               if (error) {
                 throw error;
               }
           });
-        });
       } else {
         console.log("Database error");
       }
@@ -35,7 +33,7 @@ let ActivityDAO = function(){
     };
 
     this.findAll = function(callback) {
-        db.all('SELECT * FROM Account', [], (err, rows) => {
+        db.all('SELECT * FROM Activity', [], (err, rows) => {
             if (err)
                 throw err;
 
