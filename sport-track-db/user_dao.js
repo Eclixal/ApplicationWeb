@@ -1,5 +1,6 @@
 let db = require('./sqlite_connection');
 let UserDAO = function(){
+
     this.insert = function(values, callback) {
         if (values.length === 8) {
           db.run('INSERT INTO Account (nom, prenom, date_de_naissance, sexe, taille, poids, email, password) VALUES(\'' + values[0] + '\',\'' + values[1] + '\',\'' + values[2] + '\',\'' + values[3] + '\',\'' + values[4] + '\',\'' + values[5] + '\',\'' + values[6] + '\',\'' + values[7] + '\')', (error) => {
@@ -7,10 +8,8 @@ let UserDAO = function(){
                   throw error;
               if (callback)callback();
           });
-        }
-        else {
-          console.log("Database error");
-        }
+        } else
+            throw "Database error";
     };
 
     this.update = function(key, values, callback) {
@@ -20,9 +19,8 @@ let UserDAO = function(){
                 throw error;
             if (callback) callback();
         });
-      } else {
-        console.log("Database error");
-      }
+      } else
+          throw "Database error";
     };
 
     this.delete = function(key, callback) {
@@ -49,5 +47,5 @@ let UserDAO = function(){
         });
     };
 };
-let dao = new UserDAO();
-module.exports = dao;
+let udao = new UserDAO();
+module.exports = udao;
