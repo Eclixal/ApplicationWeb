@@ -1,8 +1,8 @@
 let db = require('./sqlite_connection');
 let UserDAO = function(){
     this.insert = function(values, callback) {
-        if (values.length == 7) {
-          db.run('INSERT INTO Account VALUES('+values[0]+','+values[1]+','+values[2]+','+values[3]+','+values[4]+','+values[5]+','+values[6]+','+values[7]+')', (error) => {
+        if (values.length === 8) {
+          db.run('INSERT INTO Account (nom, prenom, date_de_naissance, sexe, taille, poids, email, password) VALUES(\'' + values[0] + '\',\'' + values[1] + '\',\'' + values[2] + '\',\'' + values[3] + '\',\'' + values[4] + '\',\'' + values[5] + '\',\'' + values[6] + '\',\'' + values[7] + '\')', (error) => {
             if (error) {
               console.log("ERROR",error);
             }
@@ -33,5 +33,8 @@ let UserDAO = function(){
     };
 };
 let dao = new UserDAO();
+
+let t = ['Michel', 'Crapeau', '975369600', 'FEMME', '185', '60', 'a@a.a', 'coucou'];
+dao.insert(t, null);
 
 module.exports = dao;
