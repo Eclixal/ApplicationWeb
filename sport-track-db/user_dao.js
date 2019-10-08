@@ -14,14 +14,9 @@ let UserDAO = function(){
 
     this.update = function(key, values, callback) {
       if (values.length === 8) {
-<<<<<<< HEAD
         new Promise ((resolve,reject) => {
           db.run('UPDATE Account SET nom = \'' + values[0] + '\', prenom = \'' + values[1] + '\', date_de_naissance = \'' + values[2] + '\', sexe = \'' + values[3] + '\', taille = \'' + values[4] + '\', poids = \'' + values[5] + '\', email = \'' + values[6] + '\', password = \'' + values[7] + '\' WHERE id = ' + "'" + key + "'", (error) => {
               if (error) {
-=======
-        db.run('UPDATE Account SET nom = \'' + values[0] + '\', prenom = \'' + values[1] + '\', date_de_naissance = \'' + values[2] + '\', sexe = \'' + values[3] + '\', taille = \'' + values[4] + '\', poids = \'' + values[5] + '\', email = \'' + values[6] + '\', password = \'' + values[7] + '\' WHERE id = ' + key, (error) => {
-            if (error)
->>>>>>> 21a11c8ef269829a195f1e67e52188b17df1f1b9
                 throw error;
               }
           });
