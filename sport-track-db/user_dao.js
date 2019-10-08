@@ -5,6 +5,7 @@ let UserDAO = function(){
           db.run('INSERT INTO Account (nom, prenom, date_de_naissance, sexe, taille, poids, email, password) VALUES(\'' + values[0] + '\',\'' + values[1] + '\',\'' + values[2] + '\',\'' + values[3] + '\',\'' + values[4] + '\',\'' + values[5] + '\',\'' + values[6] + '\',\'' + values[7] + '\')', (error) => {
               if (error)
                   throw error;
+              if (callback)callback();
           });
         }
         else {
@@ -17,6 +18,7 @@ let UserDAO = function(){
         db.run('UPDATE Account SET nom = \'' + values[0] + '\', prenom = \'' + values[1] + '\', date_de_naissance = \'' + values[2] + '\', sexe = \'' + values[3] + '\', taille = \'' + values[4] + '\', poids = \'' + values[5] + '\', email = \'' + values[6] + '\', password = \'' + values[7] + '\' WHERE id = ' + key, (error) => {
             if (error)
                 throw error;
+            if (callback) callback();
         });
       } else {
         console.log("Database error");
@@ -27,7 +29,7 @@ let UserDAO = function(){
       db.run("DELETE FROM Account WHERE id = " + key, (error) => {
           if (error)
               throw error;
-
+          if (callback) callback();
       });
     };
 
@@ -35,16 +37,17 @@ let UserDAO = function(){
         db.all('SELECT * FROM Account', [], (err, rows) => {
             if (err)
                 throw err;
-
-            rows.forEach((row) => {
-                console.log(row.nom);
-            });
+            if(callback) callback(rows);
         });
     };
-    this.findByKey = function(key, callback) {
 
+    this.findByKey = function(key, callback) {
+        db.get('SELECT * FROM Account WHERE id = ?', [key], (error, row) => {
+           if (error)
+               throw error;
+           if(callback) callback(row);
+        });
     };
 };
 let dao = new UserDAO();
-
 module.exports = dao;
