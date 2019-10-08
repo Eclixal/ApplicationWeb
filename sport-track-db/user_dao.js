@@ -3,9 +3,8 @@ let UserDAO = function(){
     this.insert = function(values, callback) {
         if (values.length === 8) {
           db.run('INSERT INTO Account (nom, prenom, date_de_naissance, sexe, taille, poids, email, password) VALUES(\'' + values[0] + '\',\'' + values[1] + '\',\'' + values[2] + '\',\'' + values[3] + '\',\'' + values[4] + '\',\'' + values[5] + '\',\'' + values[6] + '\',\'' + values[7] + '\')', (error) => {
-            if (error) {
-              console.log("Database error",error);
-            }
+              if (error)
+                  throw error;
           });
         }
         else {
@@ -15,10 +14,9 @@ let UserDAO = function(){
 
     this.update = function(key, values, callback) {
       if (values.length === 8) {
-        db.run('UPDATE INTO Account (nom, prenom ,date_de_naissance, sexe, taille, poids, email, password) VALUES (\'' + values[0] + '\',\'' + values[1] + '\',\'' + values[2] + '\',\'' + values[3] + '\',\'' + values[4] + '\',\'' + values[5] + '\',\'' + values[6] + '\',\'' + values[7] + '\') WHERE id = ' + "'" + key + "'", (error) => {
-          if (error) {
-            console.log("Database error",error);
-          }
+        db.run('UPDATE Account SET nom = \'' + values[0] + '\', prenom = \'' + values[1] + '\', date_de_naissance = \'' + values[2] + '\', sexe = \'' + values[3] + '\', taille = \'' + values[4] + '\', poids = \'' + values[5] + '\', email = \'' + values[6] + '\', password = \'' + values[7] + '\' WHERE id = ' + "'" + key + "'", (error) => {
+            if (error)
+                throw error;
         });
       }
       else {
