@@ -1,0 +1,36 @@
+doctype html
+html
+    head
+        title='Inscription'
+        link(rel='stylesheet', href='stylesheets/style.css')
+    body
+        form(method='post', action='inscription')
+            div
+                label Nom :
+                input(type='text', name='nom_user', pattern='[a-zA-Z-]+', required='')
+            div
+                label Prénom :
+                input(type='text', name='prenom_user', pattern='[a-zA-Z-]+', required='')
+            div
+                label Date de naissance :
+                input(name='date_user', type='date', required='')
+            div
+                label Sexe :
+                select(name='sexe_user')
+                    option(disabled='', selected='')
+                    option(value='homme') Homme
+                    option(value='femme') Femme
+            div
+                label Taille (en cm) :
+                input(type='number', min='50', max='270', name='taille_user', required='')
+            div
+                label Poids (en kg) :
+                input(type='number', min='20', max='250', name='poids_user', required='')
+            div
+                label Email :
+                input(type='email', name='email_user', required='')
+            div
+                label Mot de passe :
+                input(type='password', name='password_user', required='')
+            div
+                button(type='submit', name='submit') Créer mon compte

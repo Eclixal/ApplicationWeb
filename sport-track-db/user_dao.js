@@ -41,9 +41,17 @@ let UserDAO = function(){
 
     this.findByKey = function(key, callback) {
         db.get('SELECT * FROM Account WHERE id = ?', [key], (error, row) => {
-           if (error)
-               throw error;
-           if(callback) callback(row);
+            if (error)
+                throw error;
+            if(callback) callback(row);
+        });
+    };
+
+    this.findByEmail = function(key, callback) {
+        db.get('SELECT * FROM Account WHERE email = ?', [key], (error, row) => {
+            if (error)
+                throw error;
+            if(callback) callback(row);
         });
     };
 };
