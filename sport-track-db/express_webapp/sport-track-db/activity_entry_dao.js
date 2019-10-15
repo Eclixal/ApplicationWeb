@@ -39,7 +39,7 @@ let ActivityEntryDAO = function(){
         });
     };
     this.findByKey = function(key, callback) {
-        db.get('SELECT * FROM Data_activity WHERE id = ?', [key], (error, row) => {
+        db.all('SELECT * FROM Data_activity WHERE uneActivity = ?', [key], (error, row) => {
             if (error)
                 throw error;
             if(callback) callback(row);

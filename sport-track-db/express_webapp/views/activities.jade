@@ -1,0 +1,30 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='stylesheets/style.css')
+    body
+        table
+            thead
+                tr
+                    th(scope='col') #
+                    th(scope='col') Description
+                    th(scope='col') Date
+                    th(scope='col') Heure de début
+                    th(scope='col') Durée
+                    th(scope='col') Distance (en m)
+                    th(scope='col') Fréquence cardiaque maximum
+                    th(scope='col') Fréquence cardiaque minimum
+                    th(scope='col') Fréquence cardiaque moyenne
+            tbody
+                each val, index in data
+                    tr
+                        td= '#' + (index+1)
+                        td= val.description
+                        td= val.date
+                        td= val.debut
+                        td= val.time
+                        td= val.distance
+                        td= val.min_cardio
+                        td= val.max_cardio
+                        td= val.avg_cardio

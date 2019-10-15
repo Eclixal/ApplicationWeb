@@ -33,7 +33,7 @@ router.post('/', function (req, res, next) {
 
                     if (valide) {
                         activity.data.forEach((element) => {
-                            activity_entry_dao.insert([id, element.time, element.cardio_frequency, element.latitude, element.longitude, element.altitude]);
+                            activity_entry_dao.insert([id, element.time, element.cardio_frequency, Math.PI*element.latitude/180, Math.PI*element.longitude/180, element.altitude]);
                         });
                         res.send('Votre activité a bien été traité');
                     } else

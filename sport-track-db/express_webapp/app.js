@@ -10,6 +10,7 @@ let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let connectRouter = require('./routes/connect');
 let uploadRouter = require('./routes/upload');
+let activitiesRouter = require('./routes/activities');
 
 let app = express();
 
@@ -31,6 +32,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/connexion', connectRouter);
 app.use('/upload', uploadRouter);
+app.use('/activities', activitiesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
