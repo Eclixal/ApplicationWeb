@@ -48,9 +48,10 @@ let UserDAO = function(){
     };
 
     this.checkAccount = function(key, callback) {
-        db.get('SELECT * FROM Account WHERE email = ? AND password = ?', [key], (error, row) => {
+        db.get('SELECT * FROM Account WHERE email = ? AND password = ?', [key[0], key[1]], (error, row) => {
             if (error)
                 throw error;
+
             if(callback) callback(row);
         });
     };
