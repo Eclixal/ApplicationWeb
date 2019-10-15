@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1= 'Bienvenue sur SportTrack !'
+  if online
+    form(method='post', action='/connexion/disconnect')
+      div
+        button(type='submit', name='submit') Deconnexion !
+  else
+    form(method='get', action='/connexion')
+      div
+        button(type='submit') Connexion !
