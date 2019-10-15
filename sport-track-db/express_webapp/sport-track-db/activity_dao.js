@@ -3,10 +3,10 @@ let ActivityDAO = function(){
 
     this.insert = function(values, callback) {
         if (values.length === 3) {
-          db.run('INSERT INTO Activity (date, description, unAccount) VALUES(\'' + values[0] + '\',\'' + values[1] + '\',\'' + values[2] + '\')', (error) => {
+          db.run('INSERT INTO Activity (date, description, unAccount) VALUES(\'' + values[0] + '\',\'' + values[1] + '\',\'' + values[2] + '\')', function (error) {
               if (error)
                   throw error;
-              if (callback) callback();
+              if (callback) callback(this.lastID);
           });
         }
         else

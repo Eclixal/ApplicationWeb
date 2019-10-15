@@ -13,7 +13,7 @@ router.post('/', function (req, res, next) {
     if (req.param('email_user') !== null && req.param('password_user') !== null) {
         user_dao.checkAccount([req.param('email_user'), req.param('password_user')], function (row) {
             if (row !== undefined) {
-                req.session.sessionId = req.param('email_user');
+                req.session.sessionId = row.id;
                 res.send('Vous venez de vous connecter');
             } else
                 res.send('Le mot de passe ou l\'adresse mail est incorrecte !')
