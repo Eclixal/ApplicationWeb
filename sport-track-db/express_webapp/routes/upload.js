@@ -41,21 +41,6 @@ router.post('/', function (req, res, next) {
                 });
             } else
                 res.send('Le fichier n\'est pas valide !');
-
-
-            //     // Les données sont valides on les ajoutes dans la BDD
-            //     if ($valid) {
-            //         ActivityDAO::getInstance()->insert($activity);
-            //         foreach ($json->data as $activityD) {
-            //             if (isset($activityD->latitude) && isset($activityD->longitude) && isset($activityD->altitude) && isset($activityD->time) && isset($activityD->cardio_frequency)) {
-            //                 $dataActivity = new ActivityEntry();
-            //                 $dataActivity->init(null, $activity->getId(), strtotime(date('m/d/Y', $activity->getDate()) . " " . $activityD->time), $activityD->cardio_frequency, pi()*$activityD->latitude/180, pi()*$activityD->longitude/180, $activityD->altitude);
-            //                 ActivityEntryDAO::getInstance()->insert($dataActivity);
-            //             }
-            //         }
-            //         header('Location: list_activities');
-            //     }
-            // }
         });
     });
 });

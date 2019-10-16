@@ -1,24 +1,29 @@
 let express = require('express');
 let router = express.Router();
 let activity_dao = require('../sport-track-db').activity_dao;
-let activity_entry_dao = require('../sport-track-db').activity_entry_dao;
 
 router.get('/', function(req, res, next) {
     if (req.session.sessionId) {
-        activity_dao.findAll(function(rows) {
+        activity_dao.findAllWithData(req.session.sessionId, function(rows) {
             let activities = [];
             rows.forEach((element) => {
-                let arr = [];
-                activity_entry_dao.findByKey(element.id, function (row) {
-                    row.forEach((e) => {
-                       arr.push({'time': e.time, 'cardio_frequency': e.cardio_frequency, 'latitude': e.latitude, 'longitude': e.longitude, 'altitude': e.altitude});
-                   });
+                if (!activities.some(function(o){return o["id"] === element.id ;})) {
+                    let arr = [];
+                    rows.forEach((e) => {
+                        if (element.id === e.id)
+                            arr.push({'time': e.time, 'cardio_frequency': e.cardio_frequency, 'latitude': e.latitude, 'longitude': e.longitude, 'altitude': e.altitude});
+                    });
 
-                    let cardio =arr.map(x => x['cardio_frequency']);
-                    let time = arr.map(x => x['time']);
+                    arr.sort(function (a, b) {
+                        return new Date(Date.UTC(1970, 1, 1, a.time.split(":")[0], a.time.split(":")[1], a.time.split(":")[2], 0)).getTime()/1000
+                            - new Date(Date.UTC(1970, 1, 1, b.time.split(":")[0], b.time.split(":")[1], b.time.split(":")[2], 0)).getTime()/1000;
+                    });
 
-                    activities.push({'id': element.id, 'date': element.date, 'description': element.description, 'min_cardio': Math.min(cardio), 'max_cardio': Math.max(cardio), 'avg_cardio': (cardio.reduce((previous, current) => current += previous) / cardio.length), 'debut': Math.min(time), 'duree': (Math.max(time)-Math.min(time)), 'distance': calculDistanceTrajet(arr)});
-                });
+                    let cardio = arr.map(x => x['cardio_frequency']);
+                    let time = arr.map(x => new Date(Date.UTC(1970, 1, 1, x['time'].split(":")[0], x['time'].split(":")[1], x['time'].split(":")[2], 0)).getTime()/1000);
+
+                    activities.push({'id': element.id, 'date': element.date, 'description': element.description, 'min_cardio': Math.min(...cardio), 'max_cardio': Math.max(...cardio), 'avg_cardio': Math.round((cardio.reduce((previous, current) => current += previous) / cardio.length)*100)/100, 'debut': new Date(Math.min(...time)*1000).getUTCHours() + ":" + new Date(Math.min(...time)*1000).getUTCMinutes() + ":" + new Date(Math.min(...time)*1000).getUTCSeconds(), 'duree': (Math.max(...time)-Math.min(...time)), 'distance': Math.round(calculDistanceTrajet(arr)*10000)/10000});
+                }
             });
             res.render('activities', {data:activities});
         });

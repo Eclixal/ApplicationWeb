@@ -39,6 +39,16 @@ let ActivityDAO = function(){
             if (callback) callback(rows);
         });
     };
+
+
+    this.findAllWithData = function(key, callback) {
+        db.all('SELECT Activity.id, Activity.date, Activity.date, Data_activity.uneActivity, Data_activity.altitude, Data_activity.cardio_frequency, Data_activity.latitude, Data_activity.longitude, Data_activity.time FROM Activity, Data_activity WHERE unAccount = ? AND Activity.id = Data_activity.uneActivity', [key], (err, rows) => {
+            if (err)
+                throw err;
+            if (callback) callback(rows);
+        });
+    };
+
     this.findByKey = function(key, callback) {
         db.get('SELECT * FROM Activity WHERE id = ?', [key], (error, row) => {
             if (error)

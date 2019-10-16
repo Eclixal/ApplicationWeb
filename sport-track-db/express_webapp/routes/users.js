@@ -29,14 +29,4 @@ router.post('/inscription/', function (req, res, next) {
         res.send('Les champs sont incomplets !');
 });
 
-router.get('/edit/', function(req, res, next) {
-    user_dao.findByEmail('alex.jousset@outlook.fr', function (row) {
-        res.render('edit', {data:row});
-    });
-});
-
-router.post('/edit/', function(req, res, next) {
-    res.send('OMG !');
-});
-
 module.exports = router;
