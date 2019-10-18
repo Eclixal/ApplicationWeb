@@ -14,20 +14,20 @@ router.post('/', function (req, res, next) {
         user_dao.checkAccount([req.param('email_user'), req.param('password_user')], function (row) {
             if (row !== undefined) {
                 req.session.sessionId = row.id;
-                res.send('Vous venez de vous connecter');
+                res.render('message', {message:'Vous venez de vous connecter'});
             } else
-                res.send('Le mot de passe ou l\'adresse mail est incorrecte !')
+                res.render('message', {message:'Le mot de passe ou l\'adresse mail est incorrecte !'});
         })
     } else
-        res.send('Les champs sont incomplets !');
+        res.render('message', {message:'Le mot de passe ou l\'adresse mail est incorrecte !'});
 });
 
 router.post('/disconnect', function (req, res, next) {
    if (req.session.sessionId !== undefined) {
        req.session.destroy();
-       res.send('La deconnexion a été effectuée avec succès !');
+       res.render('message', {message:'La deconnexion a été effectuée avec succès !'});
    } else
-       res.send('Vous n\'êtes pas authentifié');
+       res.render('message', {message:'Vous n\'êtes pas authentifié'});
 });
 
 module.exports = router;

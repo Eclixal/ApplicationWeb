@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
             res.render('activities', {data:activities});
         });
     } else
-        res.send('Vous n\'êtes pas authentifié');
+        res.render('message', {message:'Vous n\'êtes pas authentifié'});
 });
 
 function calculDistance2PointsGPS(lat1,long1,lat2,long2) {

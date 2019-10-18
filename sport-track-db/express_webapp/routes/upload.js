@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     if (req.session.sessionId) {
         res.render('upload');
     } else
-        res.send('Vous devez être authentifié !');
+        res.render('message', {message:'Vous n\'êtes pas authentifié'});
 });
 
 router.post('/', function (req, res, next) {
@@ -35,12 +35,12 @@ router.post('/', function (req, res, next) {
                         activity.data.forEach((element) => {
                             activity_entry_dao.insert([id, element.time, element.cardio_frequency, Math.PI*element.latitude/180, Math.PI*element.longitude/180, element.altitude]);
                         });
-                        res.send('Votre activité a bien été traité');
+                        res.render('message', {message:'Votre activité a bien été traité'});
                     } else
-                        res.send('Le fichier n\'est pas valide !');
+                        res.render('message', {message:'Le fichier n\'est pas valide !'});
                 });
             } else
-                res.send('Le fichier n\'est pas valide !');
+                res.render('message', {message:'Le fichier n\'est pas valide !'});
         });
     });
 });

@@ -21,12 +21,12 @@ router.post('/inscription/', function (req, res, next) {
         user_dao.findByEmail(req.param('email_user'), function (row) {
             if (row === undefined) {
                 user_dao.insert([req.param('nom_user'), req.param('prenom_user'), new Date(req.param('date_user')).getTime()/1000, req.param('sexe_user'), req.param('taille_user'), req.param('poids_user'), req.param('email_user'), req.param('password_user')]);
-                res.send('Votre compte a bien été créé !');
+                res.render('message', {message:'Votre compte a bien été créé !'});
             } else
-                res.send('Un compte existe déjà !');
+                res.render('message', {message:'Un compte existe déjà !'});
         });
     } else
-        res.send('Les champs sont incomplets !');
+        res.render('message', {message:'Les champs sont incomplets !'});
 });
 
 module.exports = router;
