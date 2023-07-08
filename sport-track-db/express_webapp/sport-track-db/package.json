@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "express-generator": "^4.16.1",
-    "sqlite3": "^4.1.0"
+    "sqlite3": "^4.2.0"
   }
 }
